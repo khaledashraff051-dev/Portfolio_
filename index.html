@@ -260,6 +260,7 @@
       background: rgba(11, 15, 23, 0.92);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
+      overflow: hidden;
     }
 
     nav {
@@ -271,44 +272,61 @@
       justify-content: space-between;
     }
 
+    /* تنسيق اللوجو والنص بجانبه */
     .brand {
-      font-family: var(--mono);
-      font-size: 14px;
-      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      height: 60px;
+      width: auto;
+      display: block;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 0 8px rgba(95, 166, 227, 0.4));
+    }
+
+    .brand-logo:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 12px rgba(95, 166, 227, 0.7));
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1.2;
+    }
+
+    .brand-name {
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 700;
       color: var(--text);
       letter-spacing: 0.02em;
+      white-space: nowrap;
     }
 
-    .brand .dot {
-      width: 9px;
-      height: 9px;
+    .brand-status {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 2px;
+    }
+
+    .brand-status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 0 3px var(--blue-dim), 0 0 24px rgba(69, 201, 122, 0.35);
-      animation: pulse 2.6s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      50% {
-        opacity: 0.3;
-        transform: scale(0.8);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .brand .dot {
-        animation: none;
-      }
+      box-shadow: 0 0 8px rgba(69, 201, 122, 0.6);
+      animation: pulse 2.4s ease-in-out infinite;
     }
 
     .navlinks {
@@ -365,9 +383,21 @@
     }
 
     @media (max-width: 760px) {
+      .brand-logo {
+        height: 40px;
+      }
+
+      .brand-name {
+        font-size: 13px;
+      }
+
+      .brand-status {
+        font-size: 10px;
+      }
+
       .navlinks {
         position: fixed;
-        top: 57px;
+        top: 55px;
         left: 0;
         right: 0;
         background: var(--bg-alt);
@@ -398,7 +428,7 @@
       }
     }
 
-    /* ===== HERO (الصورة كبيرة جداً ومالية المكان) ===== */
+    /* ===== HERO ===== */
     .hero {
       padding: 50px 0 44px;
     }
@@ -406,9 +436,7 @@
     .hero-top {
       display: flex;
       align-items: center;
-      /* الصورة في نص السطر والنص جنبها */
       gap: 35px;
-      /* المسافة بين الصورة والنص */
       margin-bottom: 30px;
       flex-wrap: wrap;
       justify-content: flex-start;
@@ -416,14 +444,12 @@
 
     .avatar {
       width: 200px;
-      /* كبرناها جداً عشان تاخد المكان ده */
       height: 200px;
       border-radius: 50%;
       overflow: hidden;
       border: 3px solid var(--blue-bright);
       flex-shrink: 0;
       margin-right: 0;
-      /* شيلنا الزحف الزيادة عشان النص يقعد جنبها على طول */
       box-shadow: 0 0 0 4px var(--blue-dim), 0 0 50px rgba(95, 166, 227, 0.2);
       transition: all 0.4s ease;
     }
@@ -440,12 +466,10 @@
       display: block;
     }
 
-    /* النص اللي جنب الصورة */
     .hero-top>div:last-child {
       flex: 1;
       max-width: 750px;
       margin-left: 0;
-      /* شيلنا الـ 30px عشان النص ميعدي تحت الصورة */
     }
 
     .status-line {
@@ -518,16 +542,6 @@
 
     .section-head .highlight {
       color: var(--blue-bright);
-    }
-
-    .section-head .counter {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--text-dim);
-      background: var(--panel);
-      padding: 2px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
     }
 
     /* ===== TERMINAL ===== */
@@ -1269,11 +1283,10 @@
       }
     }
 
-    /* ===== RESPONSIVE TWEAKS (للموبايل) ===== */
+    /* ===== RESPONSIVE TWEAKS ===== */
     @media (max-width: 600px) {
       .avatar {
         width: 120px;
-        /* بنزل الحجم على الموبايل عشان مياخدش الشاشة كلها */
         height: 120px;
       }
 
@@ -1322,7 +1335,14 @@
   <!-- HEADER -->
   <header>
     <nav>
-      <div class="brand"><span class="dot"></span> khaled@blueteam:~$</div>
+      <div class="brand">
+        <img src="assets/logo.png" alt="Khaled Logo" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-name">BLUE TEAM</span>
+          <span class="brand-status">SOC Analyst</span>
+        </div>
+      </div>
+
       <div class="navlinks" id="navlinks">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
@@ -1351,7 +1371,7 @@
 
       <div class="hero-grid">
         <div class="panel glow-border">
-          <div class="panel-head">summary.txt <span class="badge">v1.0</span></div>
+          <div class="panel-head">Summary <span class="badge"></span></div>
           <div class="panel-body">
             <p class="summary-text">SOC Analyst with a solid foundation in cyber security, networking, and threat
               detection, backed by CCNA and CCNP Enterprise certification. Hands-on with routing, switching, and network
@@ -1367,7 +1387,6 @@
     <section id="about">
       <div class="section-head">
         <h2>About <span class="highlight">Me</span></h2>
-        <span class="counter">#01</span>
       </div>
       <div class="terminal pulse-ring">
         <div class="terminal-bar"><span></span><span></span><span></span></div>
@@ -1391,7 +1410,6 @@
     <section id="skills">
       <div class="section-head">
         <h2>Skills <span class="highlight">&amp; Expertise</span></h2>
-        <span class="counter">#02</span>
       </div>
       <div class="skill-groups">
         <div class="skill-group">
@@ -1434,7 +1452,6 @@
     <section id="experience">
       <div class="section-head">
         <h2>Experience <span class="highlight">&amp; Education</span></h2>
-        <span class="counter">#03</span>
       </div>
       <div class="timeline">
         <div class="tl-item">
@@ -1469,7 +1486,6 @@
     <section id="projects">
       <div class="section-head">
         <h2>Practical Experience <span class="highlight">— Labs &amp; Projects</span></h2>
-        <span class="counter">#04</span>
       </div>
 
       <div class="project">
@@ -1499,7 +1515,7 @@
             <div class="terminal-bar"><span></span><span></span><span></span></div>
             <div class="log-body">
               <div class="ok">[OK] alert triaged — source 10.0.4.12</div>
-              <div>[LOG] auth failure x5 — host WIN-SRV02</div>
+              <div class="warn">[WARN] auth failure x5 — host WIN-SRV02</div>
               <div class="warn">[WARN] suspicious process spawned</div>
               <div>[LOG] parsing sysmon event id 1</div>
               <div class="ok">[OK] IOC matched — investigating</div>
@@ -1530,7 +1546,6 @@
     <section id="certs">
       <div class="section-head">
         <h2>Courses <span class="highlight">&amp; Certifications</span></h2>
-        <span class="counter">#05</span>
       </div>
 
       <div class="cert-featured">
@@ -1545,23 +1560,23 @@
         </div>
       </div>
 
+    </section>
 
-
-      <!-- CONTACT -->
-      <section id="contact">
-        <div class="contact-panel">
-          <div>
-            <h2>Let's <span class="highlight">work together</span></h2>
-            <p>Open to SOC Analyst and cybersecurity opportunities — reach out directly or connect on LinkedIn.</p>
-          </div>
-          <div class="cta-list">
-            <a href="mailto:khaledashraff051@gmail.com"><span class="k">email</span>khaledashraff051@gmail.com</a>
-            <a href="tel:+201157139654"><span class="k">phone</span>+20 115 713 9654</a>
-            <a href="https://www.linkedin.com/in/khaled-ashraf777" target="_blank" rel="noopener"><span
-                class="k">linkedin</span>/in/khaled-ashraf777</a>
-          </div>
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact-panel">
+        <div>
+          <h2>Let's <span class="highlight">work together</span></h2>
+          <p>Open to SOC Analyst and cybersecurity opportunities — reach out directly or connect on LinkedIn.</p>
         </div>
-      </section>
+        <div class="cta-list">
+          <a href="mailto:khaledashraff051@gmail.com"><span class="k">email</span>khaledashraff051@gmail.com</a>
+          <a href="tel:+201157139654"><span class="k">phone</span>+20 115 713 9654</a>
+          <a href="https://www.linkedin.com/in/khaled-ashraf777" target="_blank" rel="noopener"><span
+              class="k">linkedin</span>/in/khaled-ashraf777</a>
+        </div>
+      </div>
+    </section>
 
   </div>
 
